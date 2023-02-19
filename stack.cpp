@@ -73,9 +73,23 @@ int main(){
         if(a=='(' || a=='{' || a=='['){
             s.push(a);
         }
-        if(a==')' || a=='}' || a==']'){
+       if(s.empty()){
+        cout<<"imbalance\n";
+        return 0;
+       }
+        else{
+        if(a==')' && s.peek()=='('){
             s.pop();
         }
+        if(a=='}' && s.peek()=='{'){
+            s.pop();
+        }
+        if(a==']' && s.peek()=='['){
+            s.pop();
+        }
+        }
+        
+        
     }
     if(!s.empty()){
         cout<<"imbalance\n";
