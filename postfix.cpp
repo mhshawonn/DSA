@@ -69,7 +69,8 @@ class Stack{
     int scannum(char c){
         int n;
         n=c;
-        return int(n-'0');
+        n=c-'0';
+        return n;
     }
     bool isoperator(char c){
         if(c=='+' || c=='-' || c=='*' || c=='/'||c=='^'){
@@ -103,6 +104,19 @@ class Stack{
         else 
         return INT_MIN;
     }
+    int prec(char c) {
+        if(c=='^'){
+            return 3;
+        }
+        else if(c=='/' || c=='*'){
+            return 2;
+        }
+        else if(c=='+' || c=='-'){
+            return 1;
+        }
+        return -1;
+    }
+
 
     int postfix(string post){
         Stack s;
@@ -123,11 +137,64 @@ class Stack{
         }
         return s.peek();
     }
+       string infinixtopostfix(string s){
+        Stack st;
+        string result;
+        for(int i=0;i<s.size();i++){
+        char c=s[i];
+        if(c>='a' && c<='z' || c>='A' && c<='Z' || c>='0' && c<='9'){
+                result+=c;
+        }
+        else if(c=='(' ){
+            st.push('(');
+        }
+        else if(c=='{'){
+            st.push('{');
+        }
+        else if(c=='['){
+            st.push('[');
+        }
+        else if(c==')'){
+            while(st.peek()!='('){
+                result+=st.peek();
+                st.pop();
+            }
+            st.pop();
+        }
+        else if(c=='}'){
+            while(st.peek()!='{'){
+                result+=st.peek();
+                st.pop();
+            }
+            st.pop();
+        }
+        else if(c==']'){
+            while(st.peek()!='['){
+                result+=st.peek();
+                st.pop();
+            }
+            st.pop();
+        }
+        else{
+            while(!st.empty() && prec(s[i]) <= prec(st.peek())){
+                result+=st.peek();
+                st.pop();
+            }
+            st.push(c);
+        }
+        
+        }
+        return result;
+    }
 int main(){
     string s;
     cin>>s;
-    cout<<postfix(s);
-
+    
+    string ss;
+    ss=infinixtopostfix(s);
+    cout<<postfix(ss);
+    
+    
     
    return 0;
 }
