@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
+unordered_map<char,int> sym={{'[',-1},{'{',-2},{'(',-3},{']',1},{'}',2},{')',3}};
 class node{
         public:
         int data;
@@ -66,36 +67,69 @@ class Stack{
         cout<<endl;
     }
 };
-int main(){
-    Stack s;
-    char a;
-    while(scanf("%c",&a)!=EOF){
-        if(a=='(' || a=='{' || a=='['){
-            s.push(a);
+
+    // bool isbalance(string s){
+    //     Stack st;
+    //     string result;
+    //     for(int i=0;i<s.size();i++){
+    //        char c=s[i];
+    //        if(c=='(' || c=='{' || c=='['){
+    //             st.push(c);
+    //        }
+    //        if(c==')'){
+    //         if(st.peek()=='('){
+    //             st.pop();
+    //         }
+    //         if(st.peek()=='[' || st.peek()=='{'){
+    //             return false;
+    //         }
+    //        }
+    //         if(c=='}'){
+    //         if(st.peek()=='{'){
+    //             st.pop();
+    //         }
+    //         if(st.peek()=='['){
+    //             return false;
+    //         }
+    //        }
+    //        if(c==']' && st.peek()=='['){
+    //         st.pop();
+    //        }
+
+
+    //     }
+    //     return (st.empty());
+            
+            
+    // }
+bool isBalance(string s){
+    Stack st;
+    for(int i=0;i<s.size();i++){
+        if(sym[s[i]]<0){
+            st.push(s[i]);
+        }else{
+            if(st.empty()) return false;
+            char ch=st.peek();
+            st.pop();
+            if(sym[ch] + sym[s[i]] !=0){
+                return false;
+            }
+            
+            
         }
-       if(s.empty()){
-        cout<<"imbalance\n";
-        return 0;
-       }
-        else{
-        if(a==')' && s.peek()=='('){
-            s.pop();
-        }
-        if(a=='}' && s.peek()=='{'){
-            s.pop();
-        }
-        if(a==']' && s.peek()=='['){
-            s.pop();
-        }
-        }
-        
-        
     }
-    if(!s.empty()){
-        cout<<"imbalance\n";
+    return (st.empty());
+}
+
+
+int main(){
+    string s;
+    cin>>s;
+    if(isBalance(s)){
+        cout<<"balance\n";
     }
     else{
-        cout<<"balance\n";
+        cout<<"imbalance\n";
     }
     
    return 0;
