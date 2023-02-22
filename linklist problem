@@ -1,0 +1,144 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+class node{
+
+    public:
+    int data;
+    node *next;
+
+    node( int value ){
+        data = value;
+        next = NULL;
+    }
+};
+
+void DeletAtHead( node * &head ){  
+
+    node *todelete = head;
+    head = head -> next;
+    delete todelete;
+}
+void Deletion( node * &head , int value ){  
+
+    if( head == NULL ) return;
+    if( head -> next == NULL ){
+        DeletAtHead( head );
+    }
+    node *temp = head;
+    while( temp -> next -> data != value ){
+        temp = temp -> next;
+    }
+    node *todelete = temp -> next;
+    temp -> next = temp -> next -> next;
+    delete todelete;
+}
+void InsertAtHead( node * &head , int value ){
+
+    node *n = new node( value );
+    n -> next = head;
+    head = n;
+}
+void InsertAtTail( node * &head , int value ){
+
+    node *n = new node( value );
+    if( head == NULL ){
+        head = n;
+        return;
+    }
+    node *temp = head;
+    while( temp -> next != NULL ){
+        temp = temp -> next;
+    }
+    temp -> next = n;
+}
+
+bool search( node *head , int key ){   
+
+    node *temp = head;
+    while( temp != NULL ){
+        if( temp -> data == key ){
+            return true;
+        }
+        temp = temp -> next;
+    }
+    return false;
+}
+void Display( node *head ){
+
+    node *temp = head;
+    while( temp != NULL ){
+        cout << temp -> data <<"->";
+        temp = temp -> next;
+    }
+    cout << endl;
+}
+
+node *reverse( node * &head ){    // how to reverse a linkedlist 
+
+    node *previousptr = NULL;
+    node *currentptr = head;                  
+    node *nextptr;  
+
+    while( currentptr != NULL ){
+        nextptr = currentptr -> next;
+        currentptr -> next = previousptr;
+
+        previousptr = currentptr;
+        currentptr = nextptr;
+    }
+    return previousptr;
+}
+node* mergeTwoLists(node* l1, node* l2) 
+  {
+    // if list1 happen to be NULL
+    // we will simply return list2.
+    if(l1 == NULL)
+        {
+      return l2;
+    }
+    
+    // if list2 happen to be NULL
+    // we will simply return list1.
+    if(l2 == NULL)
+        {
+      return l1;
+    } 
+    
+    // if value pointend by l1 pointer is less than equal to value pointed by l2 pointer
+    // we wall call recursively l1 -> next and whole l2 list.
+    if(l1 -> data <= l2 -> data)
+        {
+      l1 -> next = mergeTwoLists(l1 -> next, l2);
+      return l1;
+    }
+    // we will call recursive l1 whole list and l2 -> next
+    else
+        {
+      l2 -> next = mergeTwoLists(l1, l2 -> next);
+      return l2;            
+    }
+  }
+int main(){
+
+    node *head1 = NULL;
+    node *
+     node* merge;
+    int t;
+    int a;
+    cin>>t;
+   
+   
+      merge=mergeTwoLists(head1,merge);
+      
+  
+    Display(merge);
+   
+  
+    
+ 
+
+   
+    return 0;
+}
