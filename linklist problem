@@ -92,28 +92,24 @@ node *reverse( node * &head ){    // how to reverse a linkedlist
 }
 node* mergeTwoLists(node* l1, node* l2) 
   {
-    // if list1 happen to be NULL
-    // we will simply return list2.
+   
     if(l1 == NULL)
         {
       return l2;
     }
     
-    // if list2 happen to be NULL
-    // we will simply return list1.
+    
     if(l2 == NULL)
         {
       return l1;
     } 
-    
-    // if value pointend by l1 pointer is less than equal to value pointed by l2 pointer
-    // we wall call recursively l1 -> next and whole l2 list.
+ 
     if(l1 -> data <= l2 -> data)
         {
       l1 -> next = mergeTwoLists(l1 -> next, l2);
       return l1;
     }
-    // we will call recursive l1 whole list and l2 -> next
+  
     else
         {
       l2 -> next = mergeTwoLists(l1, l2 -> next);
@@ -122,18 +118,26 @@ node* mergeTwoLists(node* l1, node* l2)
   }
 int main(){
 
-    node *head1 = NULL;
-    node *
-     node* merge;
-    int t;
-    int a;
-    cin>>t;
-   
-   
-      merge=mergeTwoLists(head1,merge);
-      
-  
-    Display(merge);
+    int k;
+   cin>>k;
+    node* head[k+1];
+    for(int i=1;i<=k;i++){
+        head[i]=NULL;
+       int t;
+       t=k;
+       
+        while(t--){
+            int x;
+            cin>>x;
+            InsertAtTail(head[i],x);
+        }
+    }
+    node* ans=NULL;
+    ans=mergeTwoLists(head[1],head[2]);
+    for(int i=3;i<=k;i++){
+        ans=mergeTwoLists(ans,head[i]);
+    }
+    Display(ans);
    
   
     
