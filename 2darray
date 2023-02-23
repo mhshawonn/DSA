@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+#define fast ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+int const mod = 1e9 + 7;
+int const N = 1e5 + 10;
+int const Mod = 998244353;
+double eps = 1e-6;
+int const Maxn = 100001;
+using namespace std;
+
+
+
+void Run_case(){
+
+    int n;
+    cin >> n;
+    int element[n][n];
+    for( int i = 0; i < n; i++ ){
+        for( int j = 0; j < n; j++ ){
+            cin >> element[i][j];
+        }
+    }
+
+    for( int i = 0; i < n-1; i++ ){
+        for( int j = 0; j < n-1; j++ ){
+            if( element[i+1][j+1] < element[i][j] ){
+                swap( element[i+1][j+1] , element[i][j] );
+            }
+        }
+    }
+    for( int i = 0; i < n; i++ ){
+        for( int j = 0; j < n; j++ ){
+            cout << element[i][j] <<" ";
+        }
+        cout << endl;
+    }
+     cout << endl;
+    // for( int i = n-1; i >= 0; i-- ){
+    //     for( int j = n-1; j >= 0; j-- ){
+    //         cout << element[i][j] <<" ";
+    //     }
+    //     cout << endl;
+    // }
+}
+int main(){
+    int testcasecount = 1;  //cin >> testcasecount;
+    for( int cs = 1; cs <= testcasecount; cs++ ){
+        Run_case();
+    }
+    return 0;
+}
