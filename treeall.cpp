@@ -1,4 +1,4 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
 class Node {
@@ -92,6 +92,96 @@ private:
             cout << node->data << " ";
         }
     }
+    bool isPerfectBinaryTree(Node* root) {
+    if (root == nullptr) {
+        return true;
+    }
+    int leftHeight = 0, rightHeight = 0;
+    Node* left = root->left;
+    Node* right = root->right;
+    while (left != nullptr) {
+        left = left->left;
+        leftHeight++;
+    }
+    while (right != nullptr) {
+        right = right->right;
+        rightHeight++;
+    }
+    if (leftHeight != rightHeight) {
+        return false;
+    }
+    return isPerfectBinaryTree(root->left) && isPerfectBinaryTree(root->right);
+}
+
+bool isFullBinaryTree(Node* root) {
+    if (root == nullptr) {
+        return true;
+    }
+    if (root->left == nullptr && root->right == nullptr) {
+        return true;
+    }
+    if (root->left != nullptr && root->right != nullptr) {
+        return isFullBinaryTree(root->left) && isFullBinaryTree(root->right);
+    }
+    return false;
+}
+bool isCompleteBinaryTree(Node* root) {
+    if (root == nullptr) {
+        return true;
+    }
+    
+    queue<Node*> q;
+    q.push(root);
+    bool flag = false;
+    
+    while (!q.empty()) {
+        Node* current = q.front();
+        q.pop();
+        
+        if (current->left) {
+            if (flag) {
+                return false;
+            }
+            q.push(current->left);
+        } else {
+            flag = true;
+        }
+        
+        if (current->right) {
+            if (flag) {
+                return false;
+            }
+            q.push(current->right);
+        } else {
+            flag = true;
+        }
+    }
+    return true;
+}
+
+
+bool isLeftSkewed(Node* root) {
+    if (root == nullptr) {
+        return true;
+    }
+    if (root->right != nullptr) {
+        return false;
+    }
+    return isLeftSkewed(root->left);
+}
+
+bool isRightSkewed(Node* root) {
+    if (root == nullptr) {
+        return true;
+    }
+    if (root->left != nullptr) {
+        return false;
+    }
+    return isRightSkewed(root->right);
+}
+
+
+
 
 public:
     BinarySearchTree() {
@@ -120,6 +210,23 @@ public:
         postOrderTraversal(root);
         cout << endl;
     }
+    bool isPerfect(){
+        return isPerfectBinaryTree(root);
+    }
+    bool isFull(){
+        return isFullBinaryTree(root);
+    }
+    bool isComplete(){
+        return isCompleteBinaryTree(root);
+    }
+    bool isRight(){
+        return isRightSkewed(root);
+    }
+    bool isLeft(){
+        return isLeftSkewed(root);
+    }
+    
+
 };
 
 int main() {
